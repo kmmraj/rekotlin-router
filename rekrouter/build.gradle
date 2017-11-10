@@ -1,0 +1,162 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+//apply plugin: 'jacoco'
+apply plugin: 'maven-publish'
+//apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'org.jetbrains.dokka-android'
+
+
+ext.junitPlugin_version = '1.0.0'
+ext.junit_jupiter_version = '5.0.0'
+android {
+    compileSdkVersion 25
+    buildToolsVersion "26.0.0"
+
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        debug {
+            //TODO: Keep it false until..
+            // https://stackoverflow.com/questions/39195754/java-lang-noclassdeffounderror-failed-resolution-of-lorg-jacoco-agent-rt-inter
+            testCoverageEnabled = false
+        }
+        release {
+            minifyEnabled false
+            testCoverageEnabled = false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions {
+        unitTests.all {
+//            jacoco {
+//                includeNoLocationClasses = true
+//            }
+        }
+    }
+}
+
+//jacoco {
+//    toolVersion = "0.7.6.201602180812"
+//    reportsDir = file("$buildDir/customJacocoReportDir")
+//}
+//
+//task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+//
+//    reports {
+//        xml.enabled = true
+//        html.enabled = true
+//    }
+//
+//    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+//    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+//    def kotlinDebugTree = fileTree(dir: "${buildDir}/tmp/kotlin-classes/debug", excludes: fileFilter)
+//    def mainSrc = "${project.projectDir}/src/androidTest/java"
+//
+//    sourceDirectories = files([mainSrc])
+//    classDirectories = files([debugTree], [kotlinDebugTree])
+//    executionData = fileTree(dir: "$buildDir", includes: [
+//            "jacoco/testDebugUnitTest.exec",
+//            "outputs/code-coverage/connected/*coverage.ec"
+//    ])
+//}
+
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+//task copyTestClasses(type: Copy) {
+//    from "${buildDir}/tmp/kotlin-classes/debugUnitTest"
+//    into "${buildDir}/intermediates/classes/debug"
+//}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation 'com.android.support:appcompat-v7:25.4.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    //implementation files('/Users/mkaratadipalayam/mohan/technotes/client/apps/android/kotlin/rekotlin/myFork/ReKotlin/build/libs/rekotlin-0.1.0-SNAPSHOT.jar')
+    // TODO: Fix the below mess - compileOnly & testImplementation of rekotlin
+    compileOnly files('/Users/mkaratadipalayam/mohan/technotes/client/apps/android/kotlin/rekotlin/myFork/ReKotlin/build/libs/rekotlin-0.1.0-SNAPSHOT.jar')
+    testImplementation files('/Users/mkaratadipalayam/mohan/technotes/client/apps/android/kotlin/rekotlin/myFork/ReKotlin/build/libs/rekotlin-0.1.0-SNAPSHOT.jar')
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    testImplementation 'org.assertj:assertj-core:3.6.2'
+    testImplementation 'org.powermock:powermock-module-junit4:1.7.0RC2', 'org.powermock:powermock-api-mockito2:1.7.0RC2'
+    testImplementation group: 'com.googlecode.junit-toolbox', name: 'junit-toolbox', version: '1.10'
+    testImplementation 'org.awaitility:awaitility:3.0.0'
+}
+
+
+sourceSets {
+    main.java.srcDirs += 'src/main/java'
+}
+
+task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
+    outputFormat = 'javadoc'
+    outputDirectory = "$buildDir/javadoc"
+    inputs.dir 'src/main/java'
+}
+task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+    classifier = 'javadoc'
+    from "$buildDir/javadoc"
+}
+
+artifacts {
+   // archives aar
+    archives sourcesJar
+    archives javadocJar
+}
+
+//publishing {
+//    publications {
+//        maven(MavenPublication) {
+//            groupId 'org.rekotlinrouter'
+//            artifactId 'rekotlinrouter'
+//            from components.java
+//
+//            artifact(javadocJar){
+//                classifier = 'javadoc'
+//            }
+//
+//            artifact(sourcesJar){
+//                classifier = 'sources'
+//            }
+//
+//            repositories {
+//
+//                /*
+//                maven {
+//                    url 's3://rekotlin/snapshots'
+//                    credentials(AwsCredentials) {
+//                        accessKey AWS_ACCESS_KEY   // put this in gradle.properties
+//                        secretKey AWS_SECRET_KEY   // put this in gradle.properties
+//                    }
+//                }*/
+//
+//                maven {
+//                    url "file:/${project.projectDir}/artifacts"
+//                }
+//            }
+//        }
+//    }
+//}
+
+//dokka {
+//    outputFormat = 'html'
+//    outputDirectory = "$buildDir/javadoc"
+//}
