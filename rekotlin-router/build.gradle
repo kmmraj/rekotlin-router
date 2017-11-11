@@ -1,0 +1,287 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: "com.jfrog.bintray"
+
+group 'org.rekotlin-router'
+version '0.1.0'
+
+ext {
+    junitPlugin_version = '1.0.0'
+    junit_jupiter_version = '5.0.0'
+    bintrayRepo = 'rekotlin-router'
+    bintrayName = 'rekotlin-router'
+
+    publishedGroupId = 'org.rekotlinrouter'
+    libraryName = 'rekotlin-router'
+    artifact = 'rekotlin-router'
+    artifactName = 'org.rekotlinrouter:rekotlin-router'
+
+    libraryDescription = 'A declarative router for ReKotlin. Allows developers to declare routes in a similar manner as URLs are used on the web.'
+
+    siteUrl = 'https://github.com/kmmraj/rekotlin-router'
+    gitUrl = 'https://github.com/kmmraj/rekotlin-router.git'
+
+    libraryVersion = '0.1.0'
+
+    developerId = 'developerId'
+    developerName = 'Mohanraj K.M.'
+    developerEmail = 'kmmraj@gmail.com'
+
+    licenseName = 'MIT'
+    licenseUrl = 'https://tldrlegal.com/license/mit-license'
+    allLicenses = ["MIT"]
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "26.0.0"
+
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        debug {
+            //TODO: Keep it false until..
+            // https://stackoverflow.com/questions/39195754/java-lang-noclassdeffounderror-failed-resolution-of-lorg-jacoco-agent-rt-inter
+            testCoverageEnabled = false
+        }
+        release {
+            minifyEnabled false
+            testCoverageEnabled = false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions {
+        unitTests.all {
+        }
+    }
+}
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation 'com.android.support:appcompat-v7:25.4.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    //implementation files('/Users/mkaratadipalayam/mohan/technotes/client/apps/android/kotlin/rekotlin/myFork/ReKotlin/build/libs/rekotlin-0.1.0-SNAPSHOT.jar')
+    // TODO: Fix the below mess - compileOnly & testImplementation of rekotlin
+    compileOnly 'tw.geothings.rekotlin:rekotlin:0.1.0-SNAPSHOT'
+    //compileOnly files('/Users/mkaratadipalayam/mohan/technotes/client/apps/android/kotlin/rekotlin/myFork/ReKotlin/build/libs/rekotlin-0.1.0-SNAPSHOT.jar')
+    //testImplementation files('/Users/mkaratadipalayam/mohan/technotes/client/apps/android/kotlin/rekotlin/myFork/ReKotlin/build/libs/rekotlin-0.1.0-SNAPSHOT.jar')
+    testImplementation 'tw.geothings.rekotlin:rekotlin:0.1.0-SNAPSHOT'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    testImplementation 'org.assertj:assertj-core:3.6.2'
+    testImplementation 'org.powermock:powermock-module-junit4:1.7.0RC2', 'org.powermock:powermock-api-mockito2:1.7.0RC2'
+    testImplementation group: 'com.googlecode.junit-toolbox', name: 'junit-toolbox', version: '1.10'
+    testImplementation 'org.awaitility:awaitility:3.0.0'
+}
+
+def siteUrl = 'https://github.com/kmmraj/rekotlin-router'      // Homepage URL of the library
+def gitUrl = 'https://github.com/kmmraj/rekotlin-router.git'   // Git repository URL
+group = "org.rekotlinrouter"                                          // Maven Group ID for the artifact
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+
+                // Add your description here
+                name 'org.rekotlinrouter:rekotlin-router' // TODO
+                description = libraryDescription
+                url siteUrl
+
+                // Set your license
+                licenses {
+                    license {
+                        name licenseName
+                        url licenseUrl
+                    }
+                }
+                developers {
+                    developer {
+                        id developerId
+                        name developerName
+                        email developerEmail
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
+    outputFormat = 'javadoc'
+    outputDirectory = "$buildDir/javadoc"
+    inputs.dir 'src/main/java'
+}
+
+task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+    classifier = 'javadoc'
+    from "$buildDir/javadoc"
+}
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+// https://github.com/bintray/gradle-bintray-plugin
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
+
+    configurations = ['archives']
+    pkg {
+        repo = bintrayRepo
+        // it is the name that appears in bintray when logged
+        name = artifactName
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["MIT"]
+        publish = true
+        version {
+            gpg {
+                sign = true //Determines whether to GPG sign the files. The default is false
+                passphrase = properties.getProperty("bintray.gpg.password") //Optional. The passphrase for GPG signing'
+            }
+        }
+    }
+}
+
+
+// ------- Start -- //
+
+/*
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+//task copyTestClasses(type: Copy) {
+//    from "${buildDir}/tmp/kotlin-classes/debugUnitTest"
+//    into "${buildDir}/intermediates/classes/debug"
+//}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation 'com.android.support:appcompat-v7:25.4.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    //implementation files('/Users/mkaratadipalayam/mohan/technotes/client/apps/android/kotlin/rekotlin/myFork/ReKotlin/build/libs/rekotlin-0.1.0-SNAPSHOT.jar')
+    // TODO: Fix the below mess - compileOnly & testImplementation of rekotlin
+    compileOnly 'tw.geothings.rekotlin:rekotlin:0.1.0-SNAPSHOT'
+    //compileOnly files('/Users/mkaratadipalayam/mohan/technotes/client/apps/android/kotlin/rekotlin/myFork/ReKotlin/build/libs/rekotlin-0.1.0-SNAPSHOT.jar')
+    //testImplementation files('/Users/mkaratadipalayam/mohan/technotes/client/apps/android/kotlin/rekotlin/myFork/ReKotlin/build/libs/rekotlin-0.1.0-SNAPSHOT.jar')
+    testImplementation 'tw.geothings.rekotlin:rekotlin:0.1.0-SNAPSHOT'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:1.10.19'
+    testImplementation 'org.assertj:assertj-core:3.6.2'
+    testImplementation 'org.powermock:powermock-module-junit4:1.7.0RC2', 'org.powermock:powermock-api-mockito2:1.7.0RC2'
+    testImplementation group: 'com.googlecode.junit-toolbox', name: 'junit-toolbox', version: '1.10'
+    testImplementation 'org.awaitility:awaitility:3.0.0'
+}
+
+
+sourceSets {
+    main.java.srcDirs += 'src/main/java'
+}
+
+task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
+    outputFormat = 'javadoc'
+    outputDirectory = "$buildDir/javadoc"
+    inputs.dir 'src/main/java'
+}
+task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+    classifier = 'javadoc'
+    from "$buildDir/javadoc"
+}
+
+//artifacts {
+//   // archives aar
+    archives sourcesJar
+    archives javadocJar
+//}
+
+//Add these lines to publish library to bintray
+//Place it at the end of the file
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+
+//publishing {
+//    publications {
+//        maven(MavenPublication) {
+//            groupId 'org.rekotlinrouter'
+//            artifactId 'rekotlinrouter'
+//            from components.java
+//
+//            artifact(javadocJar){
+//                classifier = 'javadoc'
+//            }
+//
+//            artifact(sourcesJar){
+//                classifier = 'sources'
+//            }
+//
+//            repositories {
+//
+//
+                maven {
+                    url 's3://rekotlin/snapshots'
+                    credentials(AwsCredentials) {
+                        accessKey AWS_ACCESS_KEY   // put this in gradle.properties
+                        secretKey AWS_SECRET_KEY   // put this in gradle.properties
+                    }
+                }
+//
+//                maven {
+//                    url "file:/${project.projectDir}/artifacts"
+//                }
+//            }
+//        }
+//    }
+//}
+
+//dokka {
+//    outputFormat = 'html'
+//    outputDirectory = "$buildDir/javadoc"
+//}
+
+*/

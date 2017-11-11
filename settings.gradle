@@ -1,2 +1,2 @@
 //include ':app', ':rekrouter'
-include ':rekrouter'
+include ':rekotlin-router'
