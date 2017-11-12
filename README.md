@@ -172,7 +172,6 @@ object RoutableHelper {
 
 ## Calling the Completion Handler within Routables
 
-//TODO:
 ReKotlinRouter needs to throttle the navigation actions, since many UI frameworks don't allow to perform multiple navigation steps in parallel. Therefor every method of `Routable` receives a `completionHandler`. The router will not perform any further navigation actions until the completion handler is called.
 
 # Changing the Current Route
@@ -194,9 +193,15 @@ For general usage questions please use the [mailing list][list] or [StackOverflo
 
 # Contributing
 
+There's still a lot of work to do here! We would love to see you involved! You can find all the details on how to get started in the [Contributing Guide](/CONTRIBUTING.md).
+
 ## Compiling & Running tests
 
  To build or test any of the targets, run `gradle assemble`.
+
+# Example Projects
+
+- [GitHubExample](https://github.com/kmmraj/rekotlin-router-github-example): A real world example, involving authentication, network requests and navigation. Still WIP but should be the best example when you starting to adapt `ReKotlin` and `Rekotlin-Router` in your own app.
 
 ## Credits
 
