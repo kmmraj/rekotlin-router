@@ -10,7 +10,10 @@ buildscript {
     ext.junitPlugin_version = '1.0.0'
     ext.junit_jupiter_version = '5.0.0'
     repositories {
-        google()
+        //google()
+        maven {
+            url 'https://maven.google.com'
+        }
         jcenter()
         mavenLocal()
     }
@@ -26,12 +29,16 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
+       // google()
+        maven {
+            url 'https://maven.google.com'
+        }
         jcenter()
         mavenCentral()
         maven {
             url 'https://rekotlin.s3-ap-southeast-1.amazonaws.com/snapshots'
         }
+
     }
 }
 
