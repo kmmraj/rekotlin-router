@@ -39,7 +39,7 @@ checkout:
 
 test:
   override:
-    - ./gradlew assembleDebug -PdisablePreDex
+    - ./gradlew assembleDebug -PdisablePreDex install test
   post:
     - bash <(curl -s https://codecov.io/bash)
 
@@ -58,7 +58,7 @@ deployment:
       # execute tests on emulator
       - ./gradlew connectedCheck
       # Create coverage report
-      - ./gradlew jacocoTestReport
+      #- ./gradlew jacocoTestReport
       # copy the build outputs to artifacts
       - cp -r app/build/outputs $CIRCLE_ARTIFACTS
       # copy the test results to the test results directory.
