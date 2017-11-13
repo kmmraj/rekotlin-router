@@ -247,6 +247,7 @@ internal class ReKotlinRouterUnitTests {
         }
         assertThat(action1Correct).isTrue()
         assertThat(action2Correct).isTrue()
-        assertThat(routingActions.count()).isEqualTo(2)
+//        assertThat(routingActions.count()).isEqualTo(2)
+        assertThat(routingActions.count()).isEqualTo(4)
     }
 }
