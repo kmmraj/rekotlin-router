@@ -26,7 +26,7 @@ dependencies:
       - echo y | android update sdk --no-ui --all --filter tools,platform-tools,build-tools-26.0.0,android-26.0.0,extra-google-m2repository,extra-google-google_play_services,extra-android-support
       - chmod +x ./gradlew
       - ANDROID_HOME=/usr/local/android-sdk-linux
-      - echo y | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+    #  - echo y | $ANDROID_HOME/tools/bin/sdkmanager --licenses
       #./gradlew dependencies
       - ./gradlew dependencies || true
       #if [ -e ./gradlew ]; then ./gradlew dependencies;else gradle dependencies;fi
