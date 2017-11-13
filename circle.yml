@@ -31,6 +31,12 @@ dependencies:
       - ./gradlew dependencies || true
       #if [ -e ./gradlew ]; then ./gradlew dependencies;else gradle dependencies;fi
 
+
+
+checkout:
+  post:
+    - cp local.properties.ci local.properties
+
 test:
   override:
     - ./gradlew assembleDebug -PdisablePreDex
