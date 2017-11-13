@@ -22,6 +22,8 @@ dependencies:
     - /usr/local/android-sdk-linux/build-tools/26.0.1
     - /usr/local/android-sdk-linux/platforms/android-26
     - /usr/local/android-sdk-linux/extras/android/m2repository
+  override:
+        - ./gradlew dependencies || true
 
 test:
   override:
