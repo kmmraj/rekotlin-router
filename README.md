@@ -1,3 +1,5 @@
+# ReKotlin-Router [![CircleCI](https://circleci.com/gh/kmmraj/rekotlin-router.svg?style=svg)](https://circleci.com/gh/kmmraj/rekotlin-router)
+
 A declarative router for [ReKotlin](https://github.com/GeoThings/ReKotlin). Allows developers to declare routes in a similar manner as URLs are used on the web.
 
 Using ReKotlinRouter you can navigate your app by defining the target location in the form of a URL-like sequence of identifiers:
