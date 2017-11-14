@@ -12,6 +12,16 @@ version '0.1.0'
 ext {
     junitPlugin_version = '1.0.0'
     junit_jupiter_version = '5.0.0'
+    rekotlin_version = '0.1.0-SNAPSHOT'
+    junit_version = "4.12"
+    mockito_core_version = "1.10.19"
+    assertj_core_version="3.6.2"
+    android_support_lib_version = "25.4.0"
+    powermock_module_junit4_version = "1.7.0RC2"
+    powermock_api_mockito2_version = "1.7.0RC2"
+    awaitility_version = "3.0.0"
+
+
     bintrayRepo = 'rekotlin-router'
     bintrayName = 'rekotlin-router'
 
@@ -78,20 +88,17 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation 'com.android.support:appcompat-v7:25.4.0'
+    implementation "com.android.support:appcompat-v7:$android_support_lib_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    //implementation files('/Users/mkaratadipalayam/mohan/technotes/client/apps/android/kotlin/rekotlin/myFork/ReKotlin/build/libs/rekotlin-0.1.0-SNAPSHOT.jar')
-    // TODO: Fix the below mess - compileOnly & testImplementation of rekotlin
-    compileOnly 'tw.geothings.rekotlin:rekotlin:0.1.0-SNAPSHOT'
-    //compileOnly files('/Users/mkaratadipalayam/mohan/technotes/client/apps/android/kotlin/rekotlin/myFork/ReKotlin/build/libs/rekotlin-0.1.0-SNAPSHOT.jar')
-    //testImplementation files('/Users/mkaratadipalayam/mohan/technotes/client/apps/android/kotlin/rekotlin/myFork/ReKotlin/build/libs/rekotlin-0.1.0-SNAPSHOT.jar')
-    testImplementation 'tw.geothings.rekotlin:rekotlin:0.1.0-SNAPSHOT'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:1.10.19'
-    testImplementation 'org.assertj:assertj-core:3.6.2'
-    testImplementation 'org.powermock:powermock-module-junit4:1.7.0RC2', 'org.powermock:powermock-api-mockito2:1.7.0RC2'
-    testImplementation group: 'com.googlecode.junit-toolbox', name: 'junit-toolbox', version: '1.10'
-    testImplementation 'org.awaitility:awaitility:3.0.0'
+
+    compileOnly "tw.geothings.rekotlin:rekotlin:$rekotlin_version"
+    testImplementation "tw.geothings.rekotlin:rekotlin:$rekotlin_version"
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "org.mockito:mockito-core:$mockito_core_version"
+    testImplementation "org.assertj:assertj-core:$assertj_core_version"
+    testImplementation "org.powermock:powermock-module-junit4:$powermock_module_junit4_version"
+    testImplementation "org.powermock:powermock-api-mockito2:$powermock_api_mockito2_version"
+    testImplementation "org.awaitility:awaitility:$awaitility_version"
 }
 
 def siteUrl = 'https://github.com/kmmraj/rekotlin-router'      // Homepage URL of the library
@@ -100,13 +107,12 @@ group = "org.rekotlinrouter"                                          // Maven G
 
 install {
     repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
         pom {
             project {
                 packaging 'aar'
 
                 // Add your description here
-                name 'org.rekotlinrouter:rekotlin-router' // TODO
+                name 'org.rekotlinrouter:rekotlin-router'
                 description = libraryDescription
                 url siteUrl
 
@@ -139,10 +145,6 @@ task sourcesJar(type: Jar) {
     classifier = 'sources'
 }
 
-//task javadoc(type: Javadoc) {
-//    source = android.sourceSets.main.java.srcDirs
-//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-//}
 task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
     outputFormat = 'javadoc'
     outputDirectory = "$buildDir/javadoc"
@@ -150,8 +152,6 @@ task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
 }
 
 task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
-//    classifier = 'javadoc'
-//    from javadoc.destinationDir
     classifier = 'javadoc'
     from "$buildDir/javadoc"
 }
@@ -191,109 +191,3 @@ jacoco {
     reportsDir = file("$buildDir/customJacocoReportDir")
 }
 
-
-
-
-
-// ------- Start -- //
-
-/*
-
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-//task copyTestClasses(type: Copy) {
-//    from "${buildDir}/tmp/kotlin-classes/debugUnitTest"
-//    into "${buildDir}/intermediates/classes/debug"
-//}
-
-dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    implementation 'com.android.support:appcompat-v7:25.4.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    //implementation files('/Users/mkaratadipalayam/mohan/technotes/client/apps/android/kotlin/rekotlin/myFork/ReKotlin/build/libs/rekotlin-0.1.0-SNAPSHOT.jar')
-    // TODO: Fix the below mess - compileOnly & testImplementation of rekotlin
-    compileOnly 'tw.geothings.rekotlin:rekotlin:0.1.0-SNAPSHOT'
-    //compileOnly files('/Users/mkaratadipalayam/mohan/technotes/client/apps/android/kotlin/rekotlin/myFork/ReKotlin/build/libs/rekotlin-0.1.0-SNAPSHOT.jar')
-    //testImplementation files('/Users/mkaratadipalayam/mohan/technotes/client/apps/android/kotlin/rekotlin/myFork/ReKotlin/build/libs/rekotlin-0.1.0-SNAPSHOT.jar')
-    testImplementation 'tw.geothings.rekotlin:rekotlin:0.1.0-SNAPSHOT'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:1.10.19'
-    testImplementation 'org.assertj:assertj-core:3.6.2'
-    testImplementation 'org.powermock:powermock-module-junit4:1.7.0RC2', 'org.powermock:powermock-api-mockito2:1.7.0RC2'
-    testImplementation group: 'com.googlecode.junit-toolbox', name: 'junit-toolbox', version: '1.10'
-    testImplementation 'org.awaitility:awaitility:3.0.0'
-}
-
-
-sourceSets {
-    main.java.srcDirs += 'src/main/java'
-}
-
-task dokkaJavadoc(type: org.jetbrains.dokka.gradle.DokkaTask) {
-    outputFormat = 'javadoc'
-    outputDirectory = "$buildDir/javadoc"
-    inputs.dir 'src/main/java'
-}
-task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
-    classifier = 'javadoc'
-    from "$buildDir/javadoc"
-}
-
-//artifacts {
-//   // archives aar
-    archives sourcesJar
-    archives javadocJar
-//}
-
-//Add these lines to publish library to bintray
-//Place it at the end of the file
-//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
-
-//publishing {
-//    publications {
-//        maven(MavenPublication) {
-//            groupId 'org.rekotlinrouter'
-//            artifactId 'rekotlinrouter'
-//            from components.java
-//
-//            artifact(javadocJar){
-//                classifier = 'javadoc'
-//            }
-//
-//            artifact(sourcesJar){
-//                classifier = 'sources'
-//            }
-//
-//            repositories {
-//
-//
-                maven {
-                    url 's3://rekotlin/snapshots'
-                    credentials(AwsCredentials) {
-                        accessKey AWS_ACCESS_KEY   // put this in gradle.properties
-                        secretKey AWS_SECRET_KEY   // put this in gradle.properties
-                    }
-                }
-//
-//                maven {
-//                    url "file:/${project.projectDir}/artifacts"
-//                }
-//            }
-//        }
-//    }
-//}
-
-//dokka {
-//    outputFormat = 'html'
-//    outputDirectory = "$buildDir/javadoc"
-//}
-
-*/

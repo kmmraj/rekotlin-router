@@ -3,14 +3,12 @@ package org.rekotlinrouter
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
-//import org.junit.jupiter.api.DisplayName
-//import org.junit.jupiter.api.Test
 import tw.geothings.rekotlin.StateType
 
 
 /**
- * Created by mkaratadipalayam on 27/09/17.
- */
+* Created by Mohanraj Karatadipalayam on 27/09/17.
+*/
 
 internal class AppState: StateType
 

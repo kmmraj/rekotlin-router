@@ -1,12 +1,11 @@
 package org.rekotlinrouter
 
 /**
- * Created by mkaratadipalayam on 28/09/17.
- */
+* Created by Mohanraj Karatadipalayam on 28/09/17.
+*/
 
 import android.os.Handler
 import android.os.Looper
-import com.googlecode.junittoolbox.RunnableAssert
 import org.assertj.core.api.Assertions.assertThat
 import org.awaitility.Awaitility.await
 import org.junit.Before
@@ -153,7 +152,7 @@ class ReKotlinRouterIntegerationTests {
         // Then
 
         await().atMost(5, TimeUnit.SECONDS).untilAsserted {
-            object : RunnableAssert("Validate") {
+            object : Runnable {
 
                 override fun run() {
                     var isRootElementCalled: Boolean = false
@@ -238,7 +237,7 @@ class ReKotlinRouterIntegerationTests {
         // Then
 
         await().atMost(5, TimeUnit.SECONDS).untilAsserted {
-            object : RunnableAssert("Validate") {
+            object : Runnable {
 
 
             override fun run() {
@@ -293,7 +292,7 @@ class ReKotlinRouterIntegerationTests {
             // Then
             val data: String? = store.state.navigationState.getRouteSpecificState(actionArray)
 
-            await().atMost(5, TimeUnit.SECONDS).untilAsserted { object : RunnableAssert("Validate") {
+            await().atMost(5, TimeUnit.SECONDS).untilAsserted { object : Runnable {
                 override fun run() {
                     // Assert
                     assertThat(data).isEqualTo("UserID_10")
@@ -341,7 +340,7 @@ class ReKotlinRouterIntegerationTests {
 
                 // Then
 
-                await().atMost(5, TimeUnit.SECONDS).untilAsserted { object : RunnableAssert("Validate") {
+                await().atMost(5, TimeUnit.SECONDS).untilAsserted { object : Runnable {
                     @PrepareForTest(Looper::class,Handler::class)
                     override fun run() {
                         // Assert
@@ -363,7 +362,7 @@ class ReKotlinRouterIntegerationTests {
 
                 // Then
 
-                await().atMost(5, TimeUnit.SECONDS).untilAsserted { object : RunnableAssert("Validate") {
+                await().atMost(5, TimeUnit.SECONDS).untilAsserted { object : Runnable {
                     override fun run() {
                         // Assert
                         assertThat(mockRoutable.callsToPushRouteSegment.last().second).isFalse()
@@ -383,7 +382,7 @@ class ReKotlinRouterIntegerationTests {
 
                 // Then
 
-                await().atMost(5, TimeUnit.SECONDS).untilAsserted { object : RunnableAssert("Validate") {
+                await().atMost(5, TimeUnit.SECONDS).untilAsserted { object : Runnable {
                     override fun run() {
                         // Assert
                         assertThat(mockRoutable.callsToPushRouteSegment.last().second).isTrue()
