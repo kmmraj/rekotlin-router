@@ -1,4 +1,4 @@
-# ReKotlin-Router [![CircleCI](https://circleci.com/gh/kmmraj/rekotlin-router.svg?style=svg)](https://circleci.com/gh/kmmraj/rekotlin-router) (https://github.com/ReSwift/ReSwift/blob/master/LICENSE.md) [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/ReSwift/ReSwift/blob/master/LICENSE.md)
+# ReKotlin-Router [![CircleCI](https://circleci.com/gh/kmmraj/rekotlin-router.svg?style=svg)](https://circleci.com/gh/kmmraj/rekotlin-router)  [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/ReKotlin/rekotlin-router/blob/master/LICENSE.md)
 
 A declarative router for [ReKotlin](https://github.com/GeoThings/ReKotlin). Allows developers to declare routes in a similar manner as URLs are used on the web.
 
