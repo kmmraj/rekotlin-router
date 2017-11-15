@@ -1,4 +1,4 @@
-# ReKotlin-Router [![CircleCI](https://circleci.com/gh/kmmraj/rekotlin-router.svg?style=svg)](https://circleci.com/gh/kmmraj/rekotlin-router)
+# ReKotlin-Router [![CircleCI](https://circleci.com/gh/ReKotlin/rekotlin-router.svg?style=svg)](https://circleci.com/gh/ReKotlin/rekotlin-router) [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/ReKotlin/rekotlin-router/blob/master/LICENSE.md)
 
 A declarative router for [ReKotlin](https://github.com/GeoThings/ReKotlin). Allows developers to declare routes in a similar manner as URLs are used on the web.
 
@@ -195,7 +195,27 @@ For general usage questions please use the [mailing list][list] or [StackOverflo
 
 # Contributing
 
-There's still a lot of work to do here! We would love to see you involved! You can find all the details on how to get started in the [Contributing Guide](/CONTRIBUTING.md).
+There's still a lot of work to do here! We would love to see you involved!
+
+### Submitting patches
+
+The best way to submit a patch is to [fork the project on github](https://help.github.com/articles/fork-a-repo/) then send us a
+[pull request](https://help.github.com/articles/creating-a-pull-request/) via [github](https://github.com).
+
+If you create your own fork, it might help to enable rebase by default
+when you pull by executing
+``` bash
+git config --global pull.rebase true
+```
+This will avoid your local repo having too many merge commits
+which will help keep your pull request simple and easy to apply.
+
+Before submitting the pull request, make sure all existing tests are passing, and add the new test if it is required.
+
+### New functionality
+If you want to add new functionality, please file a new proposal issue first to make sure that it is not in progress already. If you have any questions, feel free to create a question issue.
+
+You can find all the details on how to get started in the [Contributing Guide](/CONTRIBUTING.md).
 
 ## Compiling & Running tests
 

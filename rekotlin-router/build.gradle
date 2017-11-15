@@ -7,7 +7,7 @@ apply plugin: "com.jfrog.bintray"
 apply plugin: 'jacoco-android'
 
 group 'org.rekotlin-router'
-version '0.1.0'
+version '0.1.1'
 
 ext {
     junitPlugin_version = '1.0.0'
