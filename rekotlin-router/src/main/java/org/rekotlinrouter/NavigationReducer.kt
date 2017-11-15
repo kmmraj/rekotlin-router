@@ -18,9 +18,15 @@ class NavigationReducer {
           var navigationState = state ?: NavigationState()
 
           when(action)  {
-            is SetRouteAction -> navigationState = setRoute(navigationState,action)
-            is SetRouteSpecificData -> navigationState = setRouteSpecificData(navigationState, action.route,  action.data)
-            else -> navigationState = NavigationState()
+            is SetRouteAction -> {
+                navigationState = setRoute(navigationState,action)
+            }
+            is SetRouteSpecificData -> {
+                navigationState = setRouteSpecificData(navigationState, action.route,  action.data)
+            }
+            else -> {
+                navigationState = NavigationState()
+            }
           }
           return navigationState
         }
