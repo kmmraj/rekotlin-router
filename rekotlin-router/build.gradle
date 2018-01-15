@@ -7,7 +7,7 @@ apply plugin: "com.jfrog.bintray"
 apply plugin: 'jacoco-android'
 
 group 'org.rekotlin-router'
-version '0.1.0'
+version '0.1.0-A'
 
 ext {
     junitPlugin_version = '1.0.0'
@@ -164,9 +164,9 @@ Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
 // https://github.com/bintray/gradle-bintray-plugin
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
+/*bintray {
+    user = System.getenv("bintray.user")
+    key = System.getenv("bintray.apikey")
 
     configurations = ['archives']
     pkg {
@@ -182,6 +182,25 @@ bintray {
                 sign = true //Determines whether to GPG sign the files. The default is false
                 passphrase = properties.getProperty("bintray.gpg.password") //Optional. The passphrase for GPG signing'
             }
+        }
+    }
+}*/
+
+bintray {
+    user = System.getenv("bintray.user")
+    key = System.getenv("bintray.apikey")
+    publications = ['rekotlin-router']
+    pkg {
+        repo = 'rekotlin-router'
+        name = 'rekotlin-router'
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["MIT"]
+        publish = true
+        version {
+            name = android.defaultConfig.versionName
+            desc = 'Redux based declarative routing for Android'
+            released  = new Date()
         }
     }
 }
