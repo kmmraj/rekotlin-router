@@ -83,5 +83,10 @@ install:
   # Check components status
   - sdkmanager --list || true
 
+#checkout:
+#  post:
+#    - cp local.properties.ci local.properties
+
 script:
+  - cp local.properties.ci local.properties
   - "./gradlew assembleRelease bintrayUpload"
