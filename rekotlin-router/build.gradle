@@ -5,6 +5,8 @@ apply plugin: 'org.jetbrains.dokka-android'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: "com.jfrog.bintray"
 apply plugin: 'jacoco-android'
+apply plugin: 'maven-publish'
+
 
 group 'org.rekotlin-router'
 version '0.1.0-A'
@@ -187,8 +189,8 @@ properties.load(project.rootProject.file('local.properties').newDataInputStream(
 }*/
 
 bintray {
-    user = System.getenv("bintray.user")
-    key = System.getenv("bintray.apikey")
+    user = System.getenv("bintrayUser")
+    key = System.getenv("bintrayApiKey")
     publications = ['rekotlin-router']
     pkg {
         repo = 'rekotlin-router'
@@ -210,3 +212,24 @@ jacoco {
     reportsDir = file("$buildDir/customJacocoReportDir")
 }
 
+publishing {
+    publications {
+        bottomnavbar(MavenPublication) {
+            groupId group
+            artifactId 'rekotlin-router'
+            //version android.defaultConfig.versionName
+            version "0.1.2"
+            artifact(sourcesJar)
+            artifact("$buildDir/outputs/aar/rekotlin-router-release.aar")
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                configurations.api.allDependencies.each { dependency ->
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', dependency.group)
+                    dependencyNode.appendNode('artifactId', dependency.name)
+                    dependencyNode.appendNode('version', dependency.version)
+                }
+            }
+        }
+    }
+}
