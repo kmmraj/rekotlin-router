@@ -15,14 +15,20 @@ class NavigationReducer {
     companion object NavRed {
 
         fun handleAction(action: Action, state: NavigationState?): NavigationState {
-          var navigationState = state ?: NavigationState()
+            var navigationState = state ?: NavigationState()
 
-          when(action)  {
-            is SetRouteAction -> navigationState = setRoute(navigationState,action)
-            is SetRouteSpecificData -> navigationState = setRouteSpecificData(navigationState, action.route,  action.data)
-            else -> navigationState = NavigationState()
-          }
-          return navigationState
+            when(action)  {
+                is SetRouteAction -> {
+                    navigationState = setRoute(navigationState,action)
+                }
+                is SetRouteSpecificData -> {
+                    navigationState = setRouteSpecificData(navigationState, action.route,  action.data)
+                }
+                else -> {
+                    navigationState = NavigationState()
+                }
+            }
+            return navigationState
         }
 
         fun setRoute(state: NavigationState, setRouteAction: SetRouteAction): NavigationState {
@@ -41,6 +47,20 @@ class NavigationReducer {
                 state.routeSpecificState.replace(routeString, data)
             } else {
                 state.routeSpecificState.put(routeString, data)
+            }
+            return state
+        }
+
+        fun reduce(action: Action, oldState: NavigationState?): NavigationState {
+            val state =  oldState ?: NavigationReducer.handleAction(action = action, state = oldState)
+            when (action) {
+                is SetRouteAction -> {
+                    return NavigationReducer.handleAction(action = action, state = state)
+                }
+
+                is SetRouteSpecificData -> {
+                    return NavigationReducer.handleAction(action = action, state = state)
+                }
             }
             return state
         }
