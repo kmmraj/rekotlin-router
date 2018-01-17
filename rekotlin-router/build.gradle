@@ -2,12 +2,14 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.jetbrains.dokka-android'
-apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: "com.jfrog.bintray"
 apply plugin: 'jacoco-android'
+apply plugin: 'maven-publish'
+
 
 group 'org.rekotlin-router'
-version '0.1.1'
+version '0.1.3'
 
 ext {
     junitPlugin_version = '1.0.0'
@@ -55,7 +57,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "0.1.3"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -84,7 +86,6 @@ android {
 
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -105,40 +106,7 @@ def siteUrl = 'https://github.com/kmmraj/rekotlin-router'      // Homepage URL o
 def gitUrl = 'https://github.com/kmmraj/rekotlin-router.git'   // Git repository URL
 group = "org.rekotlinrouter"                                          // Maven Group ID for the artifact
 
-install {
-    repositories.mavenInstaller {
-        pom {
-            project {
-                packaging 'aar'
 
-                // Add your description here
-                name 'org.rekotlinrouter:rekotlin-router'
-                description = libraryDescription
-                url siteUrl
-
-                // Set your license
-                licenses {
-                    license {
-                        name licenseName
-                        url licenseUrl
-                    }
-                }
-                developers {
-                    developer {
-                        id developerId
-                        name developerName
-                        email developerEmail
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-                }
-            }
-        }
-    }
-}
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -163,25 +131,23 @@ artifacts {
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-// https://github.com/bintray/gradle-bintray-plugin
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
 
-    configurations = ['archives']
+
+bintray {
+    user = System.getenv("bintrayUser")
+    key = System.getenv("bintrayApiKey")
+    publications = ['rekotlinRouter']
     pkg {
-        repo = bintrayRepo
-        // it is the name that appears in bintray when logged
-        name = artifactName
+        repo = libraryName
+        name = libraryName
         websiteUrl = siteUrl
         vcsUrl = gitUrl
-        licenses = ["MIT"]
+        licenses = [licenseName]
         publish = true
         version {
-            gpg {
-                sign = true //Determines whether to GPG sign the files. The default is false
-                passphrase = properties.getProperty("bintray.gpg.password") //Optional. The passphrase for GPG signing'
-            }
+            name = android.defaultConfig.versionName
+            desc = libraryDescription
+            released  = new Date()
         }
     }
 }
@@ -191,3 +157,23 @@ jacoco {
     reportsDir = file("$buildDir/customJacocoReportDir")
 }
 
+publishing {
+    publications {
+        rekotlinRouter(MavenPublication) {
+            groupId group
+            artifactId 'rekotlin-router'
+            version android.defaultConfig.versionName
+            artifact(sourcesJar)
+            artifact("$buildDir/outputs/aar/rekotlin-router-release.aar")
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                configurations.api.allDependencies.each { dependency ->
+                    def dependencyNode = dependenciesNode.appendNode('dependency')
+                    dependencyNode.appendNode('groupId', dependency.group)
+                    dependencyNode.appendNode('artifactId', dependency.name)
+                    dependencyNode.appendNode('version', dependency.version)
+                }
+            }
+        }
+    }
+}
