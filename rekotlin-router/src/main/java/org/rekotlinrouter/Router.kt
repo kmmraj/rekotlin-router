@@ -146,27 +146,27 @@ class Router<routerStateType: StateType> (var store: Store<routerStateType>,
             routeBuildingIndex -= 1
         }
 
+        // This is the 3. case:
+        // "The new route has a different element after the commonSubroute, we need to replace
+        //  the old route element with the new one"
+        if((oldRoute.count() > (commonSubroute + 1))
+                && (newRoute.count() > (commonSubroute + 1))) {
+            val changeAction = change(routableIndexForRouteSegment(commonSubroute),
+                    oldRoute[commonSubroute + 1],
+                    newRoute[commonSubroute + 1])
+
+            routingActions.add(changeAction)
+        }
         // This is the 1. case:
         // "The old route had an element after the commonSubroute and the new route does not
         //  we need to pop the route segment after the commonSubroute"
-        if(oldRoute.count() > newRoute.count()) {
+        else if(oldRoute.count() > newRoute.count()) {
             val popAction = pop(routableIndexForRouteSegment(routeBuildingIndex - 1),
                     oldRoute[routeBuildingIndex])
 
             //routingActions = routingActions.plus(popAction)
             routingActions.add(popAction)
             routeBuildingIndex -= 1
-        }
-        // This is the 3. case:
-        // "The new route has a different element after the commonSubroute, we need to replace
-        //  the old route element with the new one"
-        else if((oldRoute.count() > (commonSubroute + 1))
-                && (newRoute.count() > (commonSubroute + 1))) {
-            val changeAction = change(routableIndexForRouteSegment(commonSubroute),
-                    oldRoute[commonSubroute + 1],
-                    newRoute[commonSubroute + 1])
-
-           routingActions.add(changeAction)
         }
 
         // Push remainder of elements in new Route that weren't in old Route, this covers
