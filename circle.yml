@@ -35,6 +35,7 @@ checkout:
 
 test:
   override:
-    - ./gradlew clean jacocoTestReport install
+  #  - ./gradlew clean jacocoTestReport install
+  - ./gradlew clean install
   post:
     - bash <(curl -s https://codecov.io/bash)
