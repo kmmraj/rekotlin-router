@@ -9,7 +9,7 @@ apply plugin: 'maven-publish'
 
 
 group 'org.rekotlin-router'
-version '0.1.5'
+version '0.1.6'
 
 ext {
     junitPlugin_version = '1.0.0'
