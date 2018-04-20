@@ -43,11 +43,8 @@ class NavigationReducer {
         fun setRouteSpecificData(state: NavigationState, route: Route, data: Any): NavigationState {
             val routeString = FullRoute(route).routeString
 
-            if (state.routeSpecificState.containsKey(routeString)) {
-                state.routeSpecificState.replace(routeString, data)
-            } else {
-                state.routeSpecificState.put(routeString, data)
-            }
+            state.routeSpecificState[routeString] = data
+
             return state
         }
 
