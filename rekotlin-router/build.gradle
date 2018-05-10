@@ -9,7 +9,7 @@ apply plugin: 'maven-publish'
 
 
 group 'org.rekotlin-router'
-version '0.1.6'
+version '0.1.7'
 
 
 ext {
@@ -58,7 +58,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
-        versionName "0.1.6"
+        versionName "0.1.7"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
