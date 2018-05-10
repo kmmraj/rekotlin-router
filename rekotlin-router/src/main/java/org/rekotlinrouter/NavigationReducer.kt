@@ -62,5 +62,19 @@ class NavigationReducer {
             return state
         }
 
+        fun reduce(action: Action, oldState: NavigationState?): NavigationState {
+            val state =  oldState ?: NavigationReducer.handleAction(action = action, state = oldState)
+            when (action) {
+                is SetRouteAction -> {
+                    return NavigationReducer.handleAction(action = action, state = state)
+                }
+
+                is SetRouteSpecificData -> {
+                    return NavigationReducer.handleAction(action = action, state = state)
+                }
+            }
+            return state
+        }
+
     }
 }
