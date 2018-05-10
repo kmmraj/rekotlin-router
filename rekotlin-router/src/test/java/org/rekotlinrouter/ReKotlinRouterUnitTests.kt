@@ -154,6 +154,43 @@ internal class ReKotlinRouterUnitTests {
     }
 
     @Test
+   // @DisplayName("generates a pop action followed by a change action on root when whole route changes")
+    fun test_change_action_on_root_when_no_common_subroute() {
+        // Given
+        val oldRoute = arrayListOf(mainActivityIdentifier,counterActivityIdentifier)
+        val newRoute = arrayListOf(statsActivityIdentifier)
+
+        // When
+        val routingActions = Router.routingActionsForTransitionFrom(oldRoute, newRoute)
+
+        // Then
+        var action1Correct: Boolean = false
+        var action2Correct: Boolean = false
+
+        routingActions.forEach { routingAction ->
+            when(routingAction) {
+                is pop -> {
+                    if(routingAction.responsibleRoutableIndex == 1
+                            && routingAction.segmentToBePopped == counterActivityIdentifier){
+                        action1Correct = true
+                    }
+                }
+                is change -> {
+                    if(routingAction.responsibleRoutableIndex == 0
+                            && routingAction.segmentToBeReplaced == mainActivityIdentifier
+                            && routingAction.newSegment == statsActivityIdentifier){
+                        action2Correct = true
+                    }
+                }
+            }
+        }
+
+        assertThat(action1Correct).isTrue()
+        assertThat(action2Correct).isTrue()
+        assertThat(routingActions.count()).isEqualTo(2)
+    }
+
+    @Test
    // @DisplayName("calculates no actions for transition from empty route to empty route")
     fun test_no_action_when_transistion_from_empty_to_empty_route(){
 
