@@ -226,6 +226,7 @@ You can find all the details on how to get started in the [Contributing Guide](/
 # Example Projects
 
 - [GitHubExample](https://github.com/kmmraj/rekotlin-router-github-example): A real world example, involving authentication, network requests and navigation. Still WIP but should be the best example when you starting to adapt `ReKotlin` and `Rekotlin-Router` in your own app.
+- [Router working with Fragments](https://github.com/ReKotlin/reKotlinFragmentExample): An example, that explains how to use the router along with fragments.
 
 ## Credits
 
