@@ -1,3 +1,4 @@
+
 # ReKotlin-Router [![Build Status](https://travis-ci.org/ReKotlin/rekotlin-router.svg?branch=master)](https://travis-ci.org/ReKotlin/rekotlin-router) [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/ReKotlin/rekotlin-router/blob/master/LICENSE.md) [ ![Download](https://api.bintray.com/packages/kmmraj/rekotlin-router/rekotlin-router/images/download.svg?version=0.1.8) ](https://bintray.com/kmmraj/rekotlin-router/rekotlin-router/0.1.8/link)
 
 A declarative router for [ReKotlin](https://github.com/GeoThings/ReKotlin). Allows developers to declare routes in a similar manner as URLs are used on the web.
@@ -224,6 +225,7 @@ You can find all the details on how to get started in the [Contributing Guide](/
 # Example Projects
 
 - [GitHubExample](https://github.com/kmmraj/rekotlin-router-github-example): A real world example, involving authentication, network requests and navigation. Still WIP but should be the best example when you starting to adapt `ReKotlin` and `Rekotlin-Router` in your own app.
+- [Router working with Fragments](https://github.com/ReKotlin/reKotlinFragmentExample): An example, that explains how to use the router along with fragments.
 
 ## Credits
 
