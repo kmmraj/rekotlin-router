@@ -3,7 +3,7 @@ package org.rekotlinrouter
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
-import tw.geothings.rekotlin.StateType
+import org.rekotlin.StateType
 
 
 /**

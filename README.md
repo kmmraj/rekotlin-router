@@ -23,8 +23,15 @@ This requires to store the current navigation state within the app state and to 
 # Installation
 Add the following line along with ReKotlin dependencies in gradle file
 
+#### Version compatible with ReKotlin 1.0.0 +
+
 ```Groovy
-implementation 'org.rekotlinrouter:rekotlin-router:0.1.0'
+implementation 'org.rekotlinrouter:rekotlin-router:0.1.9'
+```
+
+#### Version compatible with ReKotlin version less than 1.0.0
+```Groovy
+implementation 'org.rekotlinrouter:rekotlin-router:0.1.8'
 ```
 
 # Configuration
@@ -32,10 +39,6 @@ implementation 'org.rekotlinrouter:rekotlin-router:0.1.0'
 Extend your app state to include the navigation state:
 
 ```Kotlin
-import org.rekotlinrouter.HasNavigationState
-import org.rekotlinrouter.NavigationState
-import tw.geothings.rekotlin.StateType
-
 data class AppState(override var navigationState: NavigationState,
                          // other application states such as....
                           var authenticationState: AuthenticationState,
