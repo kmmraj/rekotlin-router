@@ -9,13 +9,13 @@ apply plugin: 'maven-publish'
 
 
 group 'org.rekotlin-router'
-version '0.1.8'
+version '0.1.9'
 
 
 ext {
     junitPlugin_version = '1.0.0'
     junit_jupiter_version = '5.0.0'
-    rekotlin_version = '0.1.0-SNAPSHOT'
+    rekotlin_version = '1.0.0'
     junit_version = "4.12"
     mockito_core_version = "1.10.19"
     assertj_core_version="3.6.2"
@@ -38,7 +38,7 @@ ext {
     siteUrl = 'https://github.com/kmmraj/rekotlin-router'
     gitUrl = 'https://github.com/kmmraj/rekotlin-router.git'
 
-    libraryVersion = '0.1.0'
+    libraryVersion = '0.1.9'
 
     developerId = 'developerId'
     developerName = 'Mohanraj K.M.'
@@ -58,7 +58,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
-        versionName "0.1.8"
+        versionName "0.1.9"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -92,8 +92,8 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$android_support_lib_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
-    compileOnly "tw.geothings.rekotlin:rekotlin:$rekotlin_version"
-    testImplementation "tw.geothings.rekotlin:rekotlin:$rekotlin_version"
+    compileOnly "org.rekotlin:rekotlin:$rekotlin_version"
+    testImplementation "org.rekotlin:rekotlin:$rekotlin_version"
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.mockito:mockito-core:$mockito_core_version"
     testImplementation "org.assertj:assertj-core:$assertj_core_version"

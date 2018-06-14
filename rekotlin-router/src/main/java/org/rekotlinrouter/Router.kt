@@ -2,10 +2,10 @@ package org.rekotlinrouter
 
 import android.os.Handler
 import android.os.Looper
-import tw.geothings.rekotlin.StateType
-import tw.geothings.rekotlin.Store
-import tw.geothings.rekotlin.StoreSubscriber
-import tw.geothings.rekotlin.Subscription
+import org.rekotlin.StateType
+import org.rekotlin.Store
+import org.rekotlin.StoreSubscriber
+import org.rekotlin.Subscription
 
 
 // TODO: Check is this need to be a singleton ?

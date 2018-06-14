@@ -1,6 +1,6 @@
 package org.rekotlinrouter
 
-import tw.geothings.rekotlin.Action
+import org.rekotlin.Action
 
 
 class SetRouteAction(var route: Route,

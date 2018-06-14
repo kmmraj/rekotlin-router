@@ -3,14 +3,7 @@ package org.rekotlinrouter
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
-import tw.geothings.rekotlin.StateType
 
-
-/**
-* Created by Mohanraj Karatadipalayam on 27/09/17.
-*/
-
-internal class AppState: StateType
 
 internal class ReKotlinRouterUnitTests {
 
@@ -32,8 +25,8 @@ internal class ReKotlinRouterUnitTests {
         val routingActions = Router.routingActionsForTransitionFrom(oldRoute, newRoute)
 
         // Then
-        var action1Correct: Boolean = false
-        var action2Correct: Boolean = false
+        var action1Correct = false
+        var action2Correct = false
 
         routingActions.forEach { routingAction ->
             when(routingAction) {
@@ -66,8 +59,8 @@ internal class ReKotlinRouterUnitTests {
 
         // Then
         var controllerIndex: Int = -1
-        var toBeReplaced: RouteElementIdentifier=""
-        var new: RouteElementIdentifier=""
+        var toBeReplaced = ""
+        var new = ""
         routingActions.forEach { routingAction ->
 
             when (routingAction) {
@@ -95,8 +88,8 @@ internal class ReKotlinRouterUnitTests {
         val routingActions = Router.routingActionsForTransitionFrom(oldRoute, newRoute)
 
         // Then
-        var action1Correct: Boolean = false
-        var action2Correct: Boolean = false
+        var action1Correct = false
+        var action2Correct = false
 
         routingActions.forEach { routingAction ->
             when(routingAction) {
@@ -135,8 +128,8 @@ internal class ReKotlinRouterUnitTests {
 
         // Then
         var controllerIndex: Int = -1
-        var toBeReplaced: RouteElementIdentifier=""
-        var new: RouteElementIdentifier=""
+        var toBeReplaced = ""
+        var new = ""
         routingActions.forEach { routingAction ->
 
             when (routingAction) {
@@ -164,8 +157,8 @@ internal class ReKotlinRouterUnitTests {
         val routingActions = Router.routingActionsForTransitionFrom(oldRoute, newRoute)
 
         // Then
-        var action1Correct: Boolean = false
-        var action2Correct: Boolean = false
+        var action1Correct = false
+        var action2Correct = false
 
         routingActions.forEach { routingAction ->
             when(routingAction) {
@@ -234,8 +227,8 @@ internal class ReKotlinRouterUnitTests {
         val routingActions = Router.routingActionsForTransitionFrom(oldRoute, newRoute)
 
         // Then
-        var action1Correct: Boolean = false
-        var action2Correct: Boolean = false
+        var action1Correct = false
+        var action2Correct = false
         routingActions.forEach { routingAction ->
             when(routingAction) {
                 is pop -> {
@@ -265,8 +258,8 @@ internal class ReKotlinRouterUnitTests {
         val routingActions = Router.routingActionsForTransitionFrom(oldRoute, newRoute)
 
         // Then
-        var action1Correct: Boolean = false
-        var action2Correct: Boolean = false
+        var action1Correct = false
+        var action2Correct = false
         routingActions.forEach { routingAction ->
             when(routingAction) {
                 is push -> {
