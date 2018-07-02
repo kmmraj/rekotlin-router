@@ -13,9 +13,9 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.modules.junit4.PowerMockRunner
-import tw.geothings.rekotlin.Action
-import tw.geothings.rekotlin.StateType
-import tw.geothings.rekotlin.Store
+import org.rekotlin.Action
+import org.rekotlin.StateType
+import org.rekotlin.Store
 import java.util.concurrent.TimeUnit
 
 

@@ -1,6 +1,6 @@
 package org.rekotlinrouter
 
-import tw.geothings.rekotlin.*
+import org.rekotlin.*
 
 /**
 This is ReKotlin's built in action type, it is the only built in type that conforms to the
