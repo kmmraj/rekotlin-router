@@ -9,7 +9,7 @@ apply plugin: 'maven-publish'
 
 
 group 'org.rekotlin-router'
-version '0.1.9'
+version '0.2.0'
 
 
 ext {
@@ -38,7 +38,7 @@ ext {
     siteUrl = 'https://github.com/kmmraj/rekotlin-router'
     gitUrl = 'https://github.com/kmmraj/rekotlin-router.git'
 
-    libraryVersion = '0.1.9'
+    libraryVersion = '0.2.0'
 
     developerId = 'developerId'
     developerName = 'Mohanraj K.M.'
@@ -58,7 +58,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
-        versionName "0.1.9"
+        versionName "0.2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -90,7 +90,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation "com.android.support:appcompat-v7:$android_support_lib_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     compileOnly "org.rekotlin:rekotlin:$rekotlin_version"
     testImplementation "org.rekotlin:rekotlin:$rekotlin_version"

@@ -185,10 +185,9 @@ ReKotlinRouter needs to throttle the navigation actions, since many UI framework
 Currently the only way to change the current application route is by using the `SetRouteAction` and providing an absolute route. Here's a brief example:
 
 ```Kotlin
- mEmailSignInButton.setOnClickListener {
-            mainStore.dispatch(LoginAction(userName = mETEmail.text.toString(),
-                    password = mETPassword.text.toString()))
-        }
+  val routes = arrayListOf(loginRoute, repoListRoute)
+  val action = SetRouteAction(route = routes)
+  mainStore.dispatch(action)
 ```
 As development continues, support for changing individual route segments will be added.
 
