@@ -3,7 +3,7 @@ package org.rekotlinrouter
 import android.os.Handler
 import android.os.Looper
 import org.rekotlin.StateType
-import org.rekotlin.Store
+import org.rekotlin.StoreType
 import org.rekotlin.StoreSubscriber
 import org.rekotlin.Subscription
 
@@ -16,7 +16,7 @@ sealed class RoutingAction
                val newSegment: RouteElementIdentifier): RoutingAction()
 
 
-class Router<routerStateType: StateType> (var store: Store<routerStateType>,
+class Router<routerStateType: StateType> (var store: StoreType<routerStateType>,
                                           rootRoutable: Routable,
                                           stateTransform: (Subscription<routerStateType>) -> Subscription<NavigationState>): StoreSubscriber<NavigationState> {
 
