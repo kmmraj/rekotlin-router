@@ -3,7 +3,7 @@ package org.rekotlinrouter
 typealias RoutingCompletionHandler = () -> Unit
 
 typealias RouteElementIdentifier = String
-typealias Route = ArrayList<RouteElementIdentifier>
+typealias Route = List<RouteElementIdentifier>
 
 
 interface Routable {
