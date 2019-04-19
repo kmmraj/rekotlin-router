@@ -59,6 +59,4 @@ object AndroidMockUtil {
     }
 
     private val mainThread = Executors.newSingleThreadScheduledExecutor()
-
 }
-

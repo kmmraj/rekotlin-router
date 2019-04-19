@@ -18,7 +18,6 @@ import org.rekotlin.StateType
 import org.rekotlin.Store
 import java.util.concurrent.TimeUnit
 
-
 class FakeAppState: StateType {
     var navigationState = NavigationState()
 }
@@ -30,7 +29,6 @@ fun appReducer(action: Action, state: FakeAppState?): FakeAppState {
 }
 
 class MockRoutable: Routable {
-
 
     var callsToPushRouteSegment: Array<Pair< RouteElementIdentifier,Boolean>> = emptyArray()
     var callsToPopRouteSegment: Array<Pair< RouteElementIdentifier,Boolean>> = emptyArray()
@@ -51,11 +49,7 @@ class MockRoutable: Routable {
         completionHandler()
         return MockRoutable()
     }
-
-
 }
-
-
 
 //@PrepareForTest(Looper::class)
 //@RunWith(PowerMockRunner::class)
@@ -67,16 +61,12 @@ class ReKotlinRouterIntegerationTests {
 
     var store: Store<FakeAppState> = Store(reducer=::appReducer,state=FakeAppState())
 
-
     @Before
     @PrepareForTest(Looper::class,Handler::class,Router::class)
     fun initTest() {
         store = Store(reducer=::appReducer,state=FakeAppState())
         AndroidMockUtil.mockMainThreadHandler()
     }
-
-
-
 
     @Test
     // @DisplayName("does not request the main activity when no route is provided")
@@ -170,9 +160,7 @@ class ReKotlinRouterIntegerationTests {
                 }
             }
         }
-
     }
-
 
     @Test
     //@Display("calls push on the root for a route with two elements")
@@ -232,8 +220,6 @@ class ReKotlinRouterIntegerationTests {
             }
         }
 
-
-
         // Then
 
         await().atMost(5, TimeUnit.SECONDS).untilAsserted {
@@ -260,10 +246,8 @@ class ReKotlinRouterIntegerationTests {
             }
         }
         }
-
     }
     }
-
 
     @PrepareForTest(Looper::class,Handler::class)
     @RunWith(PowerMockRunner::class)
@@ -299,11 +283,7 @@ class ReKotlinRouterIntegerationTests {
                 }
             }
             }
-
-
-
         }
-
 
         @PrepareForTest(Looper::class,Handler::class,Router::class)
         @RunWith(PowerMockRunner::class)
@@ -347,9 +327,7 @@ class ReKotlinRouterIntegerationTests {
                         assertThat(mockRoutable.callsToPushRouteSegment.last().second).isTrue()
                     }
                 }}
-
             }
-
 
             @Test // @DisplayName("when dispatching an unanimated route change")
             fun test_dipatching_animated_route_change_with_animate_as_false(){
@@ -368,7 +346,6 @@ class ReKotlinRouterIntegerationTests {
                         assertThat(mockRoutable.callsToPushRouteSegment.last().second).isFalse()
                     }
                 }}
-
             }
 
             @Test // @DisplayName("when dispatching an default route change")
@@ -388,15 +365,7 @@ class ReKotlinRouterIntegerationTests {
                         assertThat(mockRoutable.callsToPushRouteSegment.last().second).isTrue()
                     }
                 }}
-
             }
-
         }
-
     }
-
-
-
 }
-
-

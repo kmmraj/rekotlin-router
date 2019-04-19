@@ -2,7 +2,6 @@ package org.rekotlinrouter
 
 import org.rekotlin.Action
 
-
 class SetRouteAction(var route: Route,
                      var animated: Boolean = true,
                      action: StandardAction? = null): StandardActionConvertible {
@@ -10,7 +9,6 @@ class SetRouteAction(var route: Route,
     companion object {
         const val type = "RE_KOTLIN_ROUTER_SET_ROUTE"
     }
-    
 
     init {
         // TODO: Convert the below to ArrayList
@@ -30,9 +28,6 @@ class SetRouteAction(var route: Route,
                 payload = payloadMap,
                 isTypedAction = true) 
     }
-
-
-
 }
 
 class SetRouteSpecificData ( val route: Route, val data: Any): Action

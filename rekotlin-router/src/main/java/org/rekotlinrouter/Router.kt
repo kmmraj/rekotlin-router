@@ -20,12 +20,10 @@ class Router<routerStateType: StateType> (var store: Store<routerStateType>,
                                           rootRoutable: Routable,
                                           stateTransform: (Subscription<routerStateType>) -> Subscription<NavigationState>): StoreSubscriber<NavigationState> {
 
-
     var lastNavigationState = NavigationState()
     // TODO: Collections.synchronizedList vs CopyOnWriteArrayList
     // var routables: List<Routable> = Collections.synchronizedList(arrayListOf<Routable>())
     var routables: ArrayList<Routable> = arrayListOf()
-
 
     init {
         this.routables.add(rootRoutable)
@@ -44,9 +42,6 @@ class Router<routerStateType: StateType> (var store: Store<routerStateType>,
         }
     }
 
-
-
-
     private fun routingSerailActionHandler(routingAction: RoutingAction, state: NavigationState) {
 
         synchronized(lock = routables){
@@ -59,8 +54,6 @@ class Router<routerStateType: StateType> (var store: Store<routerStateType>,
                                             animated = state.changeRouteAnimated) {}
                             this.routables.removeAt(routingAction.responsibleRoutableIndex+1)
                         }
-
-
                     }
 
                     is push -> {
@@ -81,12 +74,9 @@ class Router<routerStateType: StateType> (var store: Store<routerStateType>,
                                                     to = routingAction.newSegment,
                                                     animated = state.changeRouteAnimated){}
                         }
-
                     }
-
                 }
         }
-
     }
 
     // Route Transformation Logic
@@ -187,10 +177,7 @@ class Router<routerStateType: StateType> (var store: Store<routerStateType>,
 
         return routingActions
     }
-
-
     }
-
 }
 
 

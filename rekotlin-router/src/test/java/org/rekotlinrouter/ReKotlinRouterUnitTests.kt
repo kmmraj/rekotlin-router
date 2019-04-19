@@ -4,14 +4,12 @@ package org.rekotlinrouter
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
-
 internal class ReKotlinRouterUnitTests {
 
     val mainActivityIdentifier = "MainActivity"
     val counterActivityIdentifier = "CounterActivity"
     val statsActivityIdentifier = "StatsActivity"
     val infoActivityIdentifier = "InfoActivity"
-
 
     @Test
     //@DisplayName("calculates transitions from an empty route to a multi segment route")
@@ -44,7 +42,6 @@ internal class ReKotlinRouterUnitTests {
         assertThat(action2Correct).isTrue()
         assertThat(routingActions.count()).isEqualTo(2)
     }
-
 
     @Test
    // @DisplayName("generates a Change action on the last common subroute")

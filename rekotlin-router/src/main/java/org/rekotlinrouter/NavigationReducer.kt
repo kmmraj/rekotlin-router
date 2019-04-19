@@ -2,8 +2,6 @@ package org.rekotlinrouter
 
 import org.rekotlin.Action
 
-
-
 /**
 The Navigation Reducer handles the state slice concerned with storing the current navigation
 information. Note, that this reducer is **not** a *top-level* reducer, you need to use it within
