@@ -8,9 +8,9 @@ class FullRoute(route: Route) {
     }
 }
 
-data class NavigationState(var route: Route = arrayListOf() ,
-                       var routeSpecificState: HashMap<String,Any> = HashMap() ,
-                       var changeRouteAnimated: Boolean = true) {
+data class NavigationState(var route: Route = arrayListOf(),
+                           var routeSpecificState: HashMap<String, Any> = HashMap(),
+                           var changeRouteAnimated: Boolean = true) {
 
     fun <T> getRouteSpecificState(givenRoutes: Route): T? {
         val fullroute = FullRoute(givenRoutes)

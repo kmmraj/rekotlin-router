@@ -1,6 +1,6 @@
 package org.rekotlinrouter
 
-import org.rekotlin.*
+import org.rekotlin.Action
 
 /**
 This is ReKotlin's built in action type, it is the only built in type that conforms to the
@@ -13,15 +13,15 @@ to serialize your custom action types, you can implement `StandardActionConverti
 make it possible to generate a `StandardAction` from your typed action - the best of both worlds!
  */
 class StandardAction(val type: String,
-                            val payload: Map<String,Any>? = null,
-                            val isTypedAction: Boolean = false ): Action
+                     val payload: Map<String, Any>? = null,
+                     val isTypedAction: Boolean = false) : Action
 
 
 /// Implement this protocol on your custom `Action` type if you want to make the action
 /// serializable.
 /// - Note: We are working on a tool to automatically generate the implementation of this protocol
 ///     for your custom action types.
-interface StandardActionConvertible: Action {
+interface StandardActionConvertible : Action {
 
     /**
     Within this initializer you need to use the payload from the `StandardAction` to configure the
@@ -40,7 +40,7 @@ interface StandardActionConvertible: Action {
      */
 
 
-     //fun init( standardAction: StandardAction)
+    //fun init( standardAction: StandardAction)
 
     /**
     Use the information from your custom action to generate a `StandardAction`. The `type` of the
