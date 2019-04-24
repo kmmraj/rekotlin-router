@@ -89,4 +89,5 @@ install:
 
 script:
   - cp local.properties.ci local.properties
-  - "./gradlew assembleRelease bintrayUpload"
+  - ./gradlew check
+  - if [ TRAVIS_BRANCH == "master" ]; then ./gradlew assembleRelease bintrayUpload; fi

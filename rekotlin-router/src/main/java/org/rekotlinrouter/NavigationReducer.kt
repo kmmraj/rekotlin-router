@@ -2,8 +2,6 @@ package org.rekotlinrouter
 
 import org.rekotlin.Action
 
-
-
 /**
 The Navigation Reducer handles the state slice concerned with storing the current navigation
 information. Note, that this reducer is **not** a *top-level* reducer, you need to use it within
@@ -15,20 +13,20 @@ class NavigationReducer {
     companion object NavRed {
 
         fun handleAction(action: Action, state: NavigationState?): NavigationState {
-          var navigationState = state ?: NavigationState()
+            var navigationState = state ?: NavigationState()
 
-          when(action)  {
-            is SetRouteAction -> {
-                navigationState = setRoute(navigationState,action)
+            when (action) {
+                is SetRouteAction -> {
+                    navigationState = setRoute(navigationState, action)
+                }
+                is SetRouteSpecificData -> {
+                    navigationState = setRouteSpecificData(navigationState, action.route, action.data)
+                }
+                else -> {
+                    navigationState = NavigationState()
+                }
             }
-            is SetRouteSpecificData -> {
-                navigationState = setRouteSpecificData(navigationState, action.route,  action.data)
-            }
-            else -> {
-                navigationState = NavigationState()
-            }
-          }
-          return navigationState
+            return navigationState
         }
 
         fun setRoute(state: NavigationState, setRouteAction: SetRouteAction): NavigationState {
@@ -49,7 +47,8 @@ class NavigationReducer {
         }
 
         fun reduce(action: Action, oldState: NavigationState?): NavigationState {
-            val state =  oldState ?: NavigationReducer.handleAction(action = action, state = oldState)
+            val state = oldState
+                    ?: NavigationReducer.handleAction(action = action, state = oldState)
             when (action) {
                 is SetRouteAction -> {
                     return NavigationReducer.handleAction(action = action, state = state)
