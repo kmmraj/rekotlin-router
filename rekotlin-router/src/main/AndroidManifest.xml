@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.rekotlinrouter.rekrouter" />
+<manifest package="org.rekotlinrouter.rekrouter" />
