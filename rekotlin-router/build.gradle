@@ -2,28 +2,25 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.jetbrains.dokka-android'
-//apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: "com.jfrog.bintray"
-apply plugin: 'jacoco-android'
+apply plugin: 'jacoco'
 apply plugin: 'maven-publish'
-
 
 group 'org.rekotlin-router'
 version '0.2.0'
 
+def siteUrl = 'https://github.com/ReKotlin/rekotlin-router'      // Homepage URL of the library
+def gitUrl = 'https://github.com/ReKotlin/rekotlin-router.git'   // Git repository URL // Maven Group ID for the artifact
 
 ext {
-    junitPlugin_version = '1.0.0'
-    junit_jupiter_version = '5.0.0'
     rekotlin_version = '1.0.0'
     junit_version = "4.12"
     mockito_core_version = "1.10.19"
-    assertj_core_version="3.6.2"
-    android_support_lib_version = "25.4.0"
+    assertj_core_version = "3.6.2"
+    androidx_version = "1.0.2"
     powermock_module_junit4_version = "1.7.0RC2"
     powermock_api_mockito2_version = "1.7.0RC2"
     awaitility_version = "3.0.0"
-
 
     bintrayRepo = 'rekotlin-router'
     bintrayName = 'rekotlin-router'
@@ -35,11 +32,6 @@ ext {
 
     libraryDescription = 'A declarative router for ReKotlin. Allows developers to declare routes in a similar manner as URLs are used on the web.'
 
-    siteUrl = 'https://github.com/kmmraj/rekotlin-router'
-    gitUrl = 'https://github.com/kmmraj/rekotlin-router.git'
-
-    libraryVersion = '0.2.0'
-
     developerId = 'developerId'
     developerName = 'Mohanraj K.M.'
     developerEmail = 'kmmraj@gmail.com'
@@ -50,13 +42,11 @@ ext {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "26.0.0"
-
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 28
         versionCode 1
         versionName "0.2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -84,15 +74,11 @@ android {
     }
 }
 
-
 dependencies {
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    implementation "com.android.support:appcompat-v7:$android_support_lib_version"
+    implementation "androidx.appcompat:appcompat:$androidx_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
     compileOnly "org.rekotlin:rekotlin:$rekotlin_version"
+
     testImplementation "org.rekotlin:rekotlin:$rekotlin_version"
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.mockito:mockito-core:$mockito_core_version"
@@ -101,12 +87,6 @@ dependencies {
     testImplementation "org.powermock:powermock-api-mockito2:$powermock_api_mockito2_version"
     testImplementation "org.awaitility:awaitility:$awaitility_version"
 }
-
-def siteUrl = 'https://github.com/kmmraj/rekotlin-router'      // Homepage URL of the library
-def gitUrl = 'https://github.com/kmmraj/rekotlin-router.git'   // Git repository URL
-group = "org.rekotlinrouter"                                          // Maven Group ID for the artifact
-
-
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -123,15 +103,11 @@ task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
     classifier = 'javadoc'
     from "$buildDir/javadoc"
 }
+
 artifacts {
     archives javadocJar
     archives sourcesJar
 }
-
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-
 
 bintray {
     user = System.getenv("bintrayUser")
@@ -147,7 +123,7 @@ bintray {
         version {
             name = android.defaultConfig.versionName
             desc = libraryDescription
-            released  = new Date()
+            released = new Date()
         }
     }
 }
