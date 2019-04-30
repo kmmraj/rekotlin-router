@@ -2,9 +2,9 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.jetbrains.dokka-android'
-apply plugin: "com.jfrog.bintray"
-apply plugin: 'jacoco'
 apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'jacoco'
 
 group 'org.rekotlin-router'
 version '0.2.0'
@@ -13,15 +13,6 @@ def siteUrl = 'https://github.com/ReKotlin/rekotlin-router'      // Homepage URL
 def gitUrl = 'https://github.com/ReKotlin/rekotlin-router.git'   // Git repository URL // Maven Group ID for the artifact
 
 ext {
-    rekotlin_version = '1.0.0'
-    junit_version = "4.12"
-    mockito_core_version = "1.10.19"
-    assertj_core_version = "3.6.2"
-    androidx_version = "1.0.2"
-    powermock_module_junit4_version = "1.7.0RC2"
-    powermock_api_mockito2_version = "1.7.0RC2"
-    awaitility_version = "3.0.0"
-
     bintrayRepo = 'rekotlin-router'
     bintrayName = 'rekotlin-router'
 
@@ -49,7 +40,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "0.2.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
     buildTypes {
