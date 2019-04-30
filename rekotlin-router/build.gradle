@@ -107,6 +107,7 @@ bintray {
     pkg {
         repo = libraryName
         name = libraryName
+        userOrg = 'rekotlin'
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = [licenseName]
