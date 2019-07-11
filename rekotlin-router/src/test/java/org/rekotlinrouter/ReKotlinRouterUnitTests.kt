@@ -6,10 +6,10 @@ import org.junit.Test
 
 internal class ReKotlinRouterUnitTests {
 
-    val mainActivityIdentifier = "MainActivity"
-    val counterActivityIdentifier = "CounterActivity"
-    val statsActivityIdentifier = "StatsActivity"
-    val infoActivityIdentifier = "InfoActivity"
+    private val mainActivityIdentifier = "MainActivity"
+    private val counterActivityIdentifier = "CounterActivity"
+    private val statsActivityIdentifier = "StatsActivity"
+    private val infoActivityIdentifier = "InfoActivity"
 
     @Test
     //@DisplayName("calculates transitions from an empty route to a multi segment route")
@@ -104,6 +104,44 @@ internal class ReKotlinRouterUnitTests {
 
                 }
 
+            }
+        }
+
+        assertThat(action1Correct).isTrue()
+        assertThat(action2Correct).isTrue()
+        assertThat(routingActions.count()).isEqualTo(2)
+    }
+
+    @Test
+    // @DisplayName("generates a Change action on the last common subroute, also for routes of different length, old route is longer than new route")
+    fun test_change_action_on_last_common_sub_route_plus_routes_of_different_length_old_route_is_longer_than_new_route() {
+
+        // Given
+        val oldRoute = arrayListOf(mainActivityIdentifier, statsActivityIdentifier, infoActivityIdentifier)
+        val newRoute = arrayListOf(mainActivityIdentifier, counterActivityIdentifier)
+
+        // When
+        val routingActions = Router.routingActionsForTransitionFrom(oldRoute, newRoute)
+
+        // Then
+        var action1Correct = false
+        var action2Correct = false
+
+        routingActions.forEach { routingAction ->
+            when (routingAction) {
+                is pop -> {
+                    if (routingAction.responsibleRoutableIndex == 2 && routingAction.segmentToBePopped == infoActivityIdentifier) {
+                        action1Correct = true
+                    }
+
+                }
+                is change -> {
+                    if (routingAction.responsibleRoutableIndex == 1
+                            && routingAction.segmentToBeReplaced == statsActivityIdentifier
+                            && routingAction.newSegment == counterActivityIdentifier) {
+                        action2Correct = true
+                    }
+                }
             }
         }
 
