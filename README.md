@@ -3,7 +3,7 @@
 
 A declarative router for [ReKotlin](https://github.com/GeoThings/ReKotlin). Allows developers to declare routes in a similar manner as URLs are used on the web.
 
-Using ReKotlinRouter you can navigate your app by defining the target location in the form of a URL-like sequence of identifiers:
+Using ReKotlinRouter you can navigate your app by defining the target location in the form of a URL-like sequence of identifiers:-
 
 ```Kotlin
 val routes = arrayListOf(loginRoute, repoListRoute, repoDetailRoute)
